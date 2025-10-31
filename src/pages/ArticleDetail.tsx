@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Calendar, Eye, User } from "lucide-react";
 import { format } from "date-fns";
 import { it } from "date-fns/locale";
+import DOMPurify from "dompurify";
 
 const ArticleDetail = () => {
   const { slug } = useParams();
@@ -143,7 +144,12 @@ const ArticleDetail = () => {
 
           <div 
             className="prose prose-lg max-w-none mb-8"
-            dangerouslySetInnerHTML={{ __html: article.content }}
+            dangerouslySetInnerHTML={{ 
+              __html: DOMPurify.sanitize(article.content, {
+                ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'u', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'a', 'img', 'ul', 'ol', 'li', 'blockquote', 'code', 'pre'],
+                ALLOWED_ATTR: ['href', 'src', 'alt', 'title', 'class', 'target', 'rel']
+              })
+            }}
           />
 
           {article.article_tags && article.article_tags.length > 0 && (

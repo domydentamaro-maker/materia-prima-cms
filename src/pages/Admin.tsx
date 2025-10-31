@@ -29,13 +29,15 @@ const Admin = () => {
 
       setUser(session.user);
 
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("is_admin")
-        .eq("id", session.user.id)
-        .single();
+      // Check if user has admin role using server-side function
+      // Type assertion needed until migration creates has_role function
+      const { data: hasAdminRole, error } = await (supabase as any)
+        .rpc('has_role', { 
+          _user_id: session.user.id, 
+          _role: 'admin' 
+        });
 
-      if (!profile?.is_admin) {
+      if (error || !hasAdminRole) {
         toast({
           title: "Accesso negato",
           description: "Non hai i permessi per accedere a questa pagina",
