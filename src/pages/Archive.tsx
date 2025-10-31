@@ -1,26 +1,38 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
 import { Eye, Calendar } from "lucide-react";
 import { format } from "date-fns";
 import { it } from "date-fns/locale";
-import heroImage from "@/assets/hero-construction.jpg";
 
-const Index = () => {
+const Archive = () => {
+  const { year, month } = useParams();
   const [user, setUser] = useState<any>(null);
   const [articles, setArticles] = useState<any[]>([]);
-  const [categories, setCategories] = useState<any[]>([]);
-  const [tags, setTags] = useState<any[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const [selectedTag, setSelectedTag] = useState<string>("all");
-  const [sortBy, setSortBy] = useState<string>("recent");
+  const [years, setYears] = useState<string[]>([]);
+  const [selectedYear, setSelectedYear] = useState<string>(year || "");
+  const [selectedMonth, setSelectedMonth] = useState<string>(month || "");
   const [loading, setLoading] = useState(true);
+
+  const months = [
+    { value: "01", label: "Gennaio" },
+    { value: "02", label: "Febbraio" },
+    { value: "03", label: "Marzo" },
+    { value: "04", label: "Aprile" },
+    { value: "05", label: "Maggio" },
+    { value: "06", label: "Giugno" },
+    { value: "07", label: "Luglio" },
+    { value: "08", label: "Agosto" },
+    { value: "09", label: "Settembre" },
+    { value: "10", label: "Ottobre" },
+    { value: "11", label: "Novembre" },
+    { value: "12", label: "Dicembre" },
+  ];
 
   useEffect(() => {
     const checkUser = async () => {
@@ -28,33 +40,39 @@ const Index = () => {
       setUser(session?.user || null);
     };
     checkUser();
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user || null);
-    });
-
-    return () => subscription.unsubscribe();
   }, []);
 
   useEffect(() => {
-    fetchCategories();
-    fetchTags();
-    fetchArticles();
-  }, [selectedCategory, selectedTag, sortBy]);
+    fetchYears();
+  }, []);
 
-  const fetchCategories = async () => {
-    const { data } = await supabase.from("categories").select("*").order("name");
-    if (data) setCategories(data);
-  };
+  useEffect(() => {
+    if (selectedYear) {
+      fetchArticles();
+    }
+  }, [selectedYear, selectedMonth]);
 
-  const fetchTags = async () => {
-    const { data } = await supabase.from("tags").select("*").order("name");
-    if (data) setTags(data);
+  const fetchYears = async () => {
+    const { data } = await supabase
+      .from("articles")
+      .select("published_at")
+      .eq("status", "published")
+      .order("published_at", { ascending: false });
+
+    if (data) {
+      const uniqueYears = [...new Set(
+        data.map((article) => new Date(article.published_at).getFullYear().toString())
+      )];
+      setYears(uniqueYears);
+      if (uniqueYears.length > 0 && !selectedYear) {
+        setSelectedYear(uniqueYears[0]);
+      }
+    }
   };
 
   const fetchArticles = async () => {
     setLoading(true);
-    
+
     let query = supabase
       .from("articles")
       .select(`
@@ -65,28 +83,25 @@ const Index = () => {
           tags (name, slug)
         )
       `)
-      .eq("status", "published");
-
-    if (selectedCategory !== "all") {
-      query = query.eq("category_id", selectedCategory);
-    }
-
-    if (sortBy === "recent") {
-      query = query.order("published_at", { ascending: false });
-    } else if (sortBy === "popular") {
-      query = query.order("views_count", { ascending: false });
-    } else if (sortBy === "alphabetical") {
-      query = query.order("title");
-    }
+      .eq("status", "published")
+      .order("published_at", { ascending: false });
 
     const { data } = await query;
 
     let filtered = data || [];
-    
-    if (selectedTag !== "all") {
-      filtered = filtered.filter((article) =>
-        article.article_tags?.some((at: any) => at.tags.slug === selectedTag)
-      );
+
+    if (selectedYear) {
+      filtered = filtered.filter((article) => {
+        const articleYear = new Date(article.published_at).getFullYear().toString();
+        return articleYear === selectedYear;
+      });
+    }
+
+    if (selectedMonth) {
+      filtered = filtered.filter((article) => {
+        const articleMonth = String(new Date(article.published_at).getMonth() + 1).padStart(2, "0");
+        return articleMonth === selectedMonth;
+      });
     }
 
     setArticles(filtered);
@@ -98,77 +113,52 @@ const Index = () => {
       <Header user={user} />
       
       <main className="flex-1">
-        {/* Hero Section */}
-        <section className="relative h-[500px] md:h-[600px] flex items-center justify-center overflow-hidden">
-          <div 
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${heroImage})` }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/70"></div>
-          </div>
-          <div className="container relative z-10 text-primary-foreground">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold uppercase mb-4">
-              Materia Prima
+        <section className="bg-primary text-primary-foreground py-16">
+          <div className="container">
+            <h1 className="text-4xl md:text-5xl font-bold uppercase mb-4">
+              Archivio Articoli
             </h1>
-            <p className="text-xl md:text-2xl lg:text-3xl max-w-3xl">
-              Il blog di 2D Sviluppo Immobiliare: innovazione, sostenibilità e visione nel settore edilizio
+            <p className="text-xl">
+              Sfoglia gli articoli per mese e anno
             </p>
           </div>
         </section>
 
-        {/* Filters */}
         <section className="container py-8">
-          <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
-            <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
-              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                <SelectTrigger className="w-full sm:w-48">
-                  <SelectValue placeholder="Tutte le categorie" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Tutte le categorie</SelectItem>
-                  {categories.map((cat) => (
-                    <SelectItem key={cat.id} value={cat.id}>
-                      {cat.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-
-              <Select value={selectedTag} onValueChange={setSelectedTag}>
-                <SelectTrigger className="w-full sm:w-48">
-                  <SelectValue placeholder="Tutti i tag" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Tutti i tag</SelectItem>
-                  {tags.map((tag) => (
-                    <SelectItem key={tag.id} value={tag.slug}>
-                      {tag.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger className="w-full md:w-48">
-                <SelectValue />
+          <div className="flex flex-col sm:flex-row gap-4 mb-8">
+            <Select value={selectedYear} onValueChange={setSelectedYear}>
+              <SelectTrigger className="w-full sm:w-48">
+                <SelectValue placeholder="Seleziona anno" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="recent">Più recenti</SelectItem>
-                <SelectItem value="popular">Più letti</SelectItem>
-                <SelectItem value="alphabetical">Alfabetico</SelectItem>
+                {years.map((year) => (
+                  <SelectItem key={year} value={year}>
+                    {year}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Select value={selectedMonth} onValueChange={setSelectedMonth}>
+              <SelectTrigger className="w-full sm:w-48">
+                <SelectValue placeholder="Tutti i mesi" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="">Tutti i mesi</SelectItem>
+                {months.map((month) => (
+                  <SelectItem key={month.value} value={month.value}>
+                    {month.label}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
-        </section>
 
-        {/* Articles Grid */}
-        <section className="container pb-20">
           {loading ? (
             <div className="text-center py-12">Caricamento articoli...</div>
           ) : articles.length === 0 ? (
             <Card className="p-12 text-center">
-              <p className="text-muted-foreground">Nessun articolo trovato con i filtri selezionati.</p>
+              <p className="text-muted-foreground">Nessun articolo trovato per il periodo selezionato.</p>
             </Card>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -231,4 +221,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Archive;

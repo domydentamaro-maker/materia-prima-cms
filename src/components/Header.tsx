@@ -30,9 +30,9 @@ export const Header = ({ user }: HeaderProps) => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between">
+      <div className="container flex h-20 md:h-24 items-center justify-between">
         <Link to="/" className="flex items-center space-x-3">
-          <img src={logo} alt="2D Sviluppo Immobiliare" className="h-10 w-auto" />
+          <img src={logo} alt="2D Sviluppo Immobiliare" className="h-16 md:h-20 w-auto" />
         </Link>
 
         {/* Desktop Navigation */}
@@ -60,6 +60,14 @@ export const Header = ({ user }: HeaderProps) => {
             }`}
           >
             Contatti
+          </Link>
+          <Link
+            to="/archivio"
+            className={`text-sm font-bold uppercase tracking-wider transition-colors hover:text-primary ${
+              isActive("/archivio") ? "text-primary" : "text-foreground"
+            }`}
+          >
+            Archivio
           </Link>
           {user ? (
             <>
@@ -124,6 +132,13 @@ export const Header = ({ user }: HeaderProps) => {
               onClick={() => setIsMenuOpen(false)}
             >
               Contatti
+            </Link>
+            <Link
+              to="/archivio"
+              className="text-sm font-bold uppercase tracking-wider"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Archivio
             </Link>
             {user ? (
               <>

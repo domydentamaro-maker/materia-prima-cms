@@ -9,6 +9,7 @@ import Admin from "./pages/Admin";
 import ArticleDetail from "./pages/ArticleDetail";
 import ChiSiamo from "./pages/ChiSiamo";
 import Contatti from "./pages/Contatti";
+import Archive from "./pages/Archive";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,8 @@ const App = () => (
           <Route path="/blog/:slug" element={<ArticleDetail />} />
           <Route path="/chi-siamo" element={<ChiSiamo />} />
           <Route path="/contatti" element={<Contatti />} />
+          <Route path="/archivio" element={<Archive />} />
+          <Route path="/archivio/:year/:month?" element={<Archive />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
