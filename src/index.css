@@ -8,13 +8,13 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 215 40% 95%;
+    --background: 215 30% 92%;
     --foreground: 215 30% 15%;
 
-    --card: 0 0% 100%;
+    --card: 0 0% 98%;
     --card-foreground: 215 30% 15%;
 
-    --popover: 0 0% 100%;
+    --popover: 0 0% 98%;
     --popover-foreground: 215 30% 15%;
 
     /* Navy Blue Primary */
@@ -26,8 +26,8 @@ All colors MUST be HSL.
     --secondary-foreground: 215 30% 15%;
 
     /* Cement Gray Muted */
-    --muted: 0 0% 90%;
-    --muted-foreground: 0 0% 45%;
+    --muted: 0 0% 85%;
+    --muted-foreground: 215 20% 40%;
 
     --accent: 42 90% 60%;
     --accent-foreground: 215 30% 15%;
