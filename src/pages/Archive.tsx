@@ -97,7 +97,7 @@ const Archive = () => {
       });
     }
 
-    if (selectedMonth) {
+    if (selectedMonth && selectedMonth !== "all") {
       filtered = filtered.filter((article) => {
         const articleMonth = String(new Date(article.published_at).getMonth() + 1).padStart(2, "0");
         return articleMonth === selectedMonth;
@@ -144,7 +144,7 @@ const Archive = () => {
                 <SelectValue placeholder="Tutti i mesi" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Tutti i mesi</SelectItem>
+                <SelectItem value="all">Tutti i mesi</SelectItem>
                 {months.map((month) => (
                   <SelectItem key={month.value} value={month.value}>
                     {month.label}
