@@ -23,11 +23,15 @@ Copy the entire SQL block below and run it in one go:
 ## Migration SQL
 
 ```sql
--- Create enum for roles
-CREATE TYPE public.app_role AS ENUM ('admin', 'moderator', 'user');
+-- Create enum for roles (if not exists)
+DO $$ BEGIN
+  CREATE TYPE public.app_role AS ENUM ('admin', 'moderator', 'user');
+EXCEPTION
+  WHEN duplicate_object THEN null;
+END $$;
 
--- Create user_roles table
-CREATE TABLE public.user_roles (
+-- Create user_roles table (if not exists)
+CREATE TABLE IF NOT EXISTS public.user_roles (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
   role app_role NOT NULL,
@@ -37,8 +41,6 @@ CREATE TABLE public.user_roles (
 
 -- Enable RLS on user_roles
 ALTER TABLE public.user_roles ENABLE ROW LEVEL SECURITY;
-
--- No public policies on user_roles - only accessed via SECURITY DEFINER functions
 
 -- Create SECURITY DEFINER function to check roles
 CREATE OR REPLACE FUNCTION public.has_role(_user_id UUID, _role app_role)
@@ -56,14 +58,24 @@ AS $$
   )
 $$;
 
--- Migrate existing admin users from profiles to user_roles
-INSERT INTO public.user_roles (user_id, role)
-SELECT id, 'admin'::app_role
-FROM public.profiles
-WHERE is_admin = true
-ON CONFLICT (user_id, role) DO NOTHING;
+-- Migrate existing admin users from profiles to user_roles (if column exists)
+DO $$ 
+BEGIN
+  IF EXISTS (
+    SELECT 1 FROM information_schema.columns 
+    WHERE table_schema = 'public' 
+    AND table_name = 'profiles' 
+    AND column_name = 'is_admin'
+  ) THEN
+    INSERT INTO public.user_roles (user_id, role)
+    SELECT id, 'admin'::app_role
+    FROM public.profiles
+    WHERE is_admin = true
+    ON CONFLICT (user_id, role) DO NOTHING;
+  END IF;
+END $$;
 
--- Drop the RLS policies that reference profiles.is_admin (to avoid errors)
+-- Drop the RLS policies that reference profiles.is_admin
 DROP POLICY IF EXISTS "Admins can view all articles" ON public.articles;
 DROP POLICY IF EXISTS "Only admins can create articles" ON public.articles;
 DROP POLICY IF EXISTS "Only admins can delete articles" ON public.articles;
@@ -108,7 +120,7 @@ CREATE POLICY "Only admins can manage article tags"
   TO authenticated
   USING (public.has_role(auth.uid(), 'admin'));
 
--- Drop is_admin column from profiles (no longer needed)
+-- Drop is_admin column from profiles (if exists)
 ALTER TABLE public.profiles DROP COLUMN IF EXISTS is_admin;
 ```
 
