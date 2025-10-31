@@ -1,25 +1,24 @@
-# ⚠️ CRITICAL SECURITY MIGRATION REQUIRED
+# 🚨 ACTION REQUIRED: Execute Security Migration
 
-## Overview
-To complete the security fixes, you need to apply a database migration that:
-1. Creates a secure user roles system (fixes admin privilege escalation vulnerability)
-2. Migrates existing admin users from profiles table to the new user_roles table
-3. Updates all RLS policies to use a SECURITY DEFINER function
+## ⚠️ CRITICAL VULNERABILITIES DETECTED
 
-## How to Apply
+**Two error-level security issues require immediate database changes:**
 
-### Option 1: Via Backend Interface (Recommended)
-1. Click the button below to open your backend:
-   <lov-actions>
-     <lov-open-backend>Open Backend</lov-open-backend>
-   </lov-actions>
+1. **Infinite Recursion Risk** - RLS policies query profiles table from within themselves
+2. **Admin Privilege Escalation** - Users can read their own admin status from profiles table
 
-2. Navigate to the SQL Editor
-3. Copy and paste the SQL below
-4. Execute it
+## 🔧 How to Fix (3 Steps)
 
-### Option 2: Manual Migration File
-If you have direct database access, save this as a migration file and apply it.
+### Step 1: Open Your Backend
+<lov-actions>
+  <lov-open-backend>Open Backend SQL Editor</lov-open-backend>
+</lov-actions>
+
+### Step 2: Navigate to SQL Editor
+Look for "SQL Editor" in your backend interface.
+
+### Step 3: Copy & Execute This Complete SQL Script
+Copy the entire SQL block below and run it in one go:
 
 ## Migration SQL
 
