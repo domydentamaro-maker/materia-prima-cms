@@ -11,6 +11,7 @@ import { Eye, Calendar } from "lucide-react";
 import { format } from "date-fns";
 import { it } from "date-fns/locale";
 import heroImage from "@/assets/hero-construction.jpg";
+import logo from "@/assets/logo.png";
 
 const Index = () => {
   const [user, setUser] = useState<any>(null);
@@ -99,7 +100,7 @@ const Index = () => {
       
       <main className="flex-1 pt-24 md:pt-28">
         {/* Hero Section */}
-        <section className="relative h-screen -mt-24 md:-mt-28 flex items-center justify-center overflow-hidden">
+        <section className="relative h-screen flex items-center justify-center overflow-hidden">
           <div 
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${heroImage})` }}
@@ -107,12 +108,20 @@ const Index = () => {
             <div className="absolute inset-0 bg-gradient-to-b from-primary/80 via-primary/60 to-primary/90"></div>
           </div>
           <div className="container relative z-10 text-primary-foreground px-4">
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold uppercase mb-6 drop-shadow-2xl tracking-tight">
-              Materia Prima
-            </h1>
-            <p className="text-xl md:text-2xl lg:text-3xl max-w-4xl drop-shadow-lg font-normal leading-relaxed">
+            <div className="flex items-center gap-4 md:gap-6 mb-6">
+              <img src={logo} alt="2D Sviluppo Immobiliare" className="h-16 md:h-24 lg:h-32 w-auto opacity-90" />
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold uppercase drop-shadow-2xl tracking-tight">
+                Materia Prima
+              </h1>
+            </div>
+            <p className="text-xl md:text-2xl lg:text-3xl max-w-4xl drop-shadow-lg font-normal leading-relaxed mb-8">
               Il blog di 2D Sviluppo Immobiliare: innovazione, sostenibilità e visione nel settore edilizio
             </p>
+            <Link to="/chi-siamo">
+              <Button size="lg" className="uppercase font-bold text-lg px-8 py-6 bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg">
+                Scopri il Sistema 2D
+              </Button>
+            </Link>
           </div>
         </section>
 
