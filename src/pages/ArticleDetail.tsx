@@ -64,7 +64,7 @@ const ArticleDetail = () => {
     return (
       <div className="min-h-screen flex flex-col">
         <Header user={user} />
-        <main className="flex-1 container py-12 text-center">
+        <main className="flex-1 container py-12 pt-32 md:pt-36 text-center">
           <p>Caricamento articolo...</p>
         </main>
         <Footer />
@@ -76,7 +76,7 @@ const ArticleDetail = () => {
     return (
       <div className="min-h-screen flex flex-col">
         <Header user={user} />
-        <main className="flex-1 container py-12 text-center">
+        <main className="flex-1 container py-12 pt-32 md:pt-36 text-center">
           <h1 className="text-4xl font-bold mb-4">Articolo non trovato</h1>
           <Link to="/">
             <Button>
@@ -94,7 +94,7 @@ const ArticleDetail = () => {
     <div className="min-h-screen flex flex-col">
       <Header user={user} />
       
-      <main className="flex-1">
+      <main className="flex-1 pt-24 md:pt-28">
         <article className="container max-w-4xl py-12">
           <Link to="/" className="inline-block mb-8">
             <Button variant="ghost" className="uppercase">
