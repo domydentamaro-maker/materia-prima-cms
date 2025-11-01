@@ -11,11 +11,11 @@ export const Preloader = ({ onComplete }: PreloaderProps) => {
   useEffect(() => {
     const fadeTimer = setTimeout(() => {
       setIsFading(true);
-    }, 1800);
+    }, 800);
 
     const completeTimer = setTimeout(() => {
       onComplete();
-    }, 2300);
+    }, 1000);
 
     return () => {
       clearTimeout(fadeTimer);
