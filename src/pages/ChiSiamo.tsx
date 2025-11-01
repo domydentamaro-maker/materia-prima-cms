@@ -19,7 +19,7 @@ const ChiSiamo = () => {
     <div className="min-h-screen flex flex-col">
       <Header user={user} />
       
-      <main className="flex-1 pt-24 md:pt-28">
+      <main className="flex-1">
         <section className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground py-20">
           <div className="container">
             <h1 className="text-4xl md:text-6xl font-bold uppercase mb-4">

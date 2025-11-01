@@ -77,7 +77,7 @@ const Admin = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header user={user} />
-      <main className="flex-1 container py-8 pt-32 md:pt-36">
+      <main className="flex-1 container py-8">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold uppercase">Dashboard Admin</h1>
           <Button

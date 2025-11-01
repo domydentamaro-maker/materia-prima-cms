@@ -28,43 +28,53 @@ export const Header = ({ user }: HeaderProps) => {
 
   const isActive = (path: string) => location.pathname === path;
 
+  const isHomePage = location.pathname === "/";
+
   return (
-    <header className="fixed top-0 z-50 w-full bg-primary/80 backdrop-blur-md border-b border-accent/20 transition-all">
-      <div className="container flex h-24 md:h-28 items-center justify-between gap-4">
-        <Link to="/" className="flex items-center">
-          <img src={logo} alt="2D Sviluppo Immobiliare" className="h-20 md:h-24 w-auto" />
+    <header className={`fixed top-0 z-50 w-full ${isHomePage ? 'bg-transparent' : 'bg-primary/95 backdrop-blur border-b border-primary-foreground/10'} transition-colors`}>
+      <div className="container flex h-20 md:h-24 items-center justify-between">
+        <Link to="/" className="flex items-center space-x-3">
+          <img src={logo} alt="2D Sviluppo Immobiliare" className="h-16 md:h-20 w-auto" />
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
+        <nav className={`hidden md:flex items-center space-x-6 ${isHomePage ? 'text-primary-foreground' : ''}`}>
           <Link
             to="/"
-            className={`text-sm font-bold uppercase tracking-wider transition-colors hover:text-accent ${
-              isActive("/") ? "text-accent" : "text-primary-foreground"
+            className={`text-sm font-bold uppercase tracking-wider transition-colors ${
+              isHomePage 
+                ? 'hover:text-accent text-primary-foreground' 
+                : `hover:text-accent ${isActive("/") ? "text-accent" : "text-primary-foreground"}`
             }`}
           >
             Blog
           </Link>
           <Link
             to="/chi-siamo"
-            className={`text-sm font-bold uppercase tracking-wider transition-colors hover:text-accent ${
-              isActive("/chi-siamo") ? "text-accent" : "text-primary-foreground"
+            className={`text-sm font-bold uppercase tracking-wider transition-colors ${
+              isHomePage 
+                ? 'hover:text-accent text-primary-foreground' 
+                : `hover:text-accent ${isActive("/chi-siamo") ? "text-accent" : "text-primary-foreground"}`
             }`}
           >
             Chi Siamo
           </Link>
           <Link
             to="/contatti"
-            className={`text-sm font-bold uppercase tracking-wider transition-colors hover:text-accent ${
-              isActive("/contatti") ? "text-accent" : "text-primary-foreground"
+            className={`text-sm font-bold uppercase tracking-wider transition-colors ${
+              isHomePage 
+                ? 'hover:text-accent text-primary-foreground' 
+                : `hover:text-accent ${isActive("/contatti") ? "text-accent" : "text-primary-foreground"}`
             }`}
           >
             Contatti
           </Link>
           <Link
             to="/archivio"
-            className={`text-sm font-bold uppercase tracking-wider transition-colors hover:text-accent ${
-              isActive("/archivio") ? "text-accent" : "text-primary-foreground"
+            className={`text-sm font-bold uppercase tracking-wider transition-colors ${
+              isHomePage 
+                ? 'hover:text-accent text-primary-foreground' 
+                : `hover:text-accent ${isActive("/archivio") ? "text-accent" : "text-primary-foreground"}`
             }`}
           >
             Archivio
@@ -73,8 +83,10 @@ export const Header = ({ user }: HeaderProps) => {
             <>
               <Link
                 to="/admin"
-                className={`text-sm font-bold uppercase tracking-wider transition-colors hover:text-accent ${
-                  isActive("/admin") ? "text-accent" : "text-primary-foreground"
+                className={`text-sm font-bold uppercase tracking-wider transition-colors ${
+                  isHomePage 
+                    ? 'hover:text-accent text-primary-foreground' 
+                    : `hover:text-accent ${isActive("/admin") ? "text-accent" : "text-primary-foreground"}`
                 }`}
               >
                 Dashboard
@@ -83,7 +95,7 @@ export const Header = ({ user }: HeaderProps) => {
                 variant="ghost"
                 size="sm"
                 onClick={handleLogout}
-                className="uppercase text-primary-foreground hover:text-accent hover:bg-accent/10"
+                className={`uppercase ${isHomePage ? 'text-primary-foreground hover:text-accent hover:bg-primary-foreground/10' : 'text-primary-foreground hover:text-accent'}`}
               >
                 <LogOut className="mr-2 h-4 w-4" />
                 Logout
@@ -100,18 +112,18 @@ export const Header = ({ user }: HeaderProps) => {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-primary-foreground"
+          className={`md:hidden ${isHomePage ? 'text-primary-foreground' : 'text-primary-foreground'}`}
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label="Toggle menu"
         >
-          {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
       {/* Mobile Navigation */}
       {isMenuOpen && (
-        <div className="md:hidden border-t border-accent/20 bg-primary/95 backdrop-blur-md">
-          <nav className="container flex flex-col space-y-4 py-6 text-primary-foreground">
+        <div className={`md:hidden border-t ${isHomePage ? 'bg-primary/95 backdrop-blur' : 'bg-primary'}`}>
+          <nav className="container flex flex-col space-y-4 py-4 text-primary-foreground">
             <Link
               to="/"
               className="text-sm font-bold uppercase tracking-wider"
