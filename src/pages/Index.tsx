@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { Preloader } from "@/components/Preloader";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -22,6 +23,7 @@ const Index = () => {
   const [selectedTag, setSelectedTag] = useState<string>("all");
   const [sortBy, setSortBy] = useState<string>("recent");
   const [loading, setLoading] = useState(true);
+  const [showPreloader, setShowPreloader] = useState(true);
 
   useEffect(() => {
     const checkUser = async () => {
@@ -94,6 +96,10 @@ const Index = () => {
     setLoading(false);
   };
 
+  if (showPreloader) {
+    return <Preloader onComplete={() => setShowPreloader(false)} />;
+  }
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header user={user} />
@@ -108,12 +114,11 @@ const Index = () => {
             <div className="absolute inset-0 bg-gradient-to-b from-primary/80 via-primary/60 to-primary/90"></div>
           </div>
           <div className="container relative z-10 text-primary-foreground px-4">
-            <div className="flex items-center gap-4 md:gap-6 mb-6">
-              <img src={logo} alt="2D Sviluppo Immobiliare" className="h-16 md:h-24 lg:h-32 w-auto opacity-90" />
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold uppercase drop-shadow-2xl tracking-tight">
-                Materia Prima
-              </h1>
-            </div>
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold uppercase drop-shadow-2xl tracking-tight mb-6 flex items-center justify-center md:justify-start gap-3 md:gap-4 flex-wrap">
+              <span>Materia</span>
+              <img src={logo} alt="2D" className="h-[1em] w-auto opacity-90" />
+              <span>Prima</span>
+            </h1>
             <p className="text-xl md:text-2xl lg:text-3xl max-w-4xl drop-shadow-lg font-normal leading-relaxed mb-8">
               Il blog di 2D Sviluppo Immobiliare: innovazione, sostenibilità e visione nel settore edilizio
             </p>
