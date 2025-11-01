@@ -112,7 +112,7 @@ const Archive = () => {
     <div className="min-h-screen flex flex-col">
       <Header user={user} />
       
-      <main className="flex-1">
+      <main className="flex-1 pt-24 md:pt-28">
         <section className="bg-primary text-primary-foreground py-16">
           <div className="container">
             <h1 className="text-4xl md:text-5xl font-bold uppercase mb-4">

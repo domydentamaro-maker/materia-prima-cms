@@ -97,9 +97,9 @@ const Index = () => {
     <div className="min-h-screen flex flex-col">
       <Header user={user} />
       
-      <main className="flex-1">
+      <main className="flex-1 pt-24 md:pt-28">
         {/* Hero Section */}
-        <section className="relative h-screen flex items-center justify-center overflow-hidden">
+        <section className="relative h-screen -mt-24 md:-mt-28 flex items-center justify-center overflow-hidden">
           <div 
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${heroImage})` }}
@@ -107,17 +107,17 @@ const Index = () => {
             <div className="absolute inset-0 bg-gradient-to-b from-primary/80 via-primary/60 to-primary/90"></div>
           </div>
           <div className="container relative z-10 text-primary-foreground px-4">
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold uppercase mb-6 drop-shadow-2xl">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold uppercase mb-6 drop-shadow-2xl tracking-tight">
               Materia Prima
             </h1>
-            <p className="text-xl md:text-3xl lg:text-4xl max-w-4xl drop-shadow-lg">
+            <p className="text-xl md:text-2xl lg:text-3xl max-w-4xl drop-shadow-lg font-normal leading-relaxed">
               Il blog di 2D Sviluppo Immobiliare: innovazione, sostenibilità e visione nel settore edilizio
             </p>
           </div>
         </section>
 
         {/* Filters */}
-        <section className="bg-primary/5 py-8">
+        <section className="bg-card py-8">
           <div className="container">
           <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
             <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
@@ -165,7 +165,7 @@ const Index = () => {
         </section>
 
         {/* Articles Grid */}
-        <section className="container py-12">
+        <section className="container py-12 bg-background">
           {loading ? (
             <div className="text-center py-12">Caricamento articoli...</div>
           ) : articles.length === 0 ? (
