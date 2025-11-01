@@ -29,7 +29,7 @@ export const Header = ({ user }: HeaderProps) => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <header className="fixed top-0 z-50 w-full bg-transparent backdrop-blur-sm border-b border-accent/10 transition-all">
+    <header className="fixed top-0 z-50 w-full bg-transparent backdrop-blur-sm transition-all">
       <div className="container flex h-24 md:h-28 items-center justify-between gap-4">
         <Link to="/" className="flex items-center">
           <img src={logo} alt="2D Sviluppo Immobiliare" className="h-20 md:h-24 w-auto" />

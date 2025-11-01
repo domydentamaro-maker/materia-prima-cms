@@ -98,7 +98,7 @@ const Index = () => {
     <div className="min-h-screen flex flex-col">
       <Header user={user} />
       
-      <main className="flex-1 pt-24 md:pt-28">
+      <main className="flex-1">
         {/* Hero Section */}
         <section className="relative h-screen flex items-center justify-center overflow-hidden">
           <div 
