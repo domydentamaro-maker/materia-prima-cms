@@ -113,16 +113,19 @@ const Index = () => {
           >
             <div className="absolute inset-0 bg-gradient-to-b from-primary/80 via-primary/60 to-primary/90"></div>
           </div>
-          <div className="container relative z-10 text-primary-foreground px-4">
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold uppercase drop-shadow-2xl tracking-tight mb-6 flex items-center justify-center md:justify-start gap-3 md:gap-4 flex-wrap">
+          <div className="container relative z-10 text-primary-foreground px-4 text-center">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold uppercase drop-shadow-2xl tracking-tight mb-6 flex items-center justify-center gap-3 md:gap-6 flex-wrap">
               <span>Materia</span>
-              <img src={logo} alt="2D" className="h-[1em] w-auto opacity-90" />
+              <img src={logo} alt="2D" className="h-[1.3em] w-auto opacity-90" />
               <span>Prima</span>
             </h1>
-            <p className="text-xl md:text-2xl lg:text-3xl max-w-4xl drop-shadow-lg font-normal leading-relaxed mb-8">
-              Il blog di 2D Sviluppo Immobiliare: innovazione, sostenibilità e visione nel settore edilizio
+            <p className="text-xl md:text-2xl lg:text-3xl max-w-4xl mx-auto drop-shadow-lg font-normal leading-relaxed mb-4">
+              Il blog di 2D Sviluppo Immobiliare
             </p>
-            <Link to="/chi-siamo">
+            <p className="text-xl md:text-2xl lg:text-3xl max-w-4xl mx-auto drop-shadow-lg font-normal leading-relaxed mb-8">
+              Innovazione, sostenibilità e visione nel settore edilizio
+            </p>
+            <Link to="/chi-siamo" className="inline-block">
               <Button size="lg" className="uppercase font-bold text-lg px-8 py-6 bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg">
                 Scopri il Sistema 2D
               </Button>

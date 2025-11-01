@@ -6,28 +6,34 @@ interface PreloaderProps {
 }
 
 export const Preloader = ({ onComplete }: PreloaderProps) => {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isFading, setIsFading] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(false);
-      setTimeout(onComplete, 300); // Wait for fade out animation
-    }, 2000);
+    const fadeTimer = setTimeout(() => {
+      setIsFading(true);
+    }, 1800);
 
-    return () => clearTimeout(timer);
+    const completeTimer = setTimeout(() => {
+      onComplete();
+    }, 2300);
+
+    return () => {
+      clearTimeout(fadeTimer);
+      clearTimeout(completeTimer);
+    };
   }, [onComplete]);
 
-  if (!isVisible) {
-    return null;
-  }
-
   return (
-    <div className="fixed inset-0 z-[100] bg-primary flex items-center justify-center animate-fade-in">
-      <div className="animate-scale-in">
+    <div 
+      className={`fixed inset-0 z-[100] flex items-center justify-center transition-all duration-500 ${
+        isFading ? 'bg-transparent' : 'bg-primary'
+      }`}
+    >
+      <div className="animate-pulse">
         <img 
           src={logo} 
           alt="2D Sviluppo Immobiliare" 
-          className="h-32 md:h-48 lg:h-64 w-auto opacity-90"
+          className="h-40 md:h-56 lg:h-72 w-auto opacity-90"
         />
       </div>
     </div>
