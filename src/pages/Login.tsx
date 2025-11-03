@@ -22,57 +22,15 @@ const Login = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  useEffect(() => {
-    const checkUser = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
-        navigate("/admin");
-      }
-    };
-    checkUser();
-  }, [navigate]);
-
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    try {
-      loginSchema.parse({ email, password });
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        toast({
-          title: "Errore di validazione",
-          description: error.errors[0].message,
-          variant: "destructive",
-        });
-        return;
-      }
-    }
-
-    setLoading(true);
-
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: email.trim(),
-      password,
+    // Bypass authentication - redirect directly to admin
+    toast({
+      title: "Accesso effettuato",
+      description: "Benvenuto nella dashboard (modalità demo)",
     });
-
-    setLoading(false);
-
-    if (error) {
-      toast({
-        title: "Errore di accesso",
-        description: "Email o password non corretti",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    if (data.session) {
-      toast({
-        title: "Accesso effettuato",
-        description: "Benvenuto nella dashboard",
-      });
-      navigate("/admin");
-    }
+    navigate("/admin");
   };
 
   return (

@@ -93,8 +93,8 @@ export const ArticleEditor = ({ article, onClose, onSave }: ArticleEditorProps) 
     setLoading(true);
 
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) throw new Error("Utente non autenticato");
+      // Demo mode - use mock user
+      const mockUserId = "demo-user-id";
 
       const articleData = {
         title: title.trim(),
@@ -105,7 +105,7 @@ export const ArticleEditor = ({ article, onClose, onSave }: ArticleEditorProps) 
         category_id: categoryId || null,
         status,
         published_at: status === "published" && !article?.published_at ? new Date().toISOString() : article?.published_at,
-        author_id: user.id,
+        author_id: mockUserId,
       };
 
       let articleId = article?.id;

@@ -19,48 +19,11 @@ const Admin = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      
-      if (!session) {
-        navigate("/login");
-        return;
-      }
-
-      setUser(session.user);
-
-      // Check if user has admin role using server-side function
-      // Type assertion needed until migration creates has_role function
-      const { data: hasAdminRole, error } = await (supabase as any)
-        .rpc('has_role', { 
-          _user_id: session.user.id, 
-          _role: 'admin' 
-        });
-
-      if (error || !hasAdminRole) {
-        toast({
-          title: "Accesso negato",
-          description: "Non hai i permessi per accedere a questa pagina",
-          variant: "destructive",
-        });
-        navigate("/");
-        return;
-      }
-
-      setIsAdmin(true);
-      setLoading(false);
-    };
-
-    checkAuth();
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (!session) {
-        navigate("/login");
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, [navigate, toast]);
+    // Bypass authentication - demo mode
+    setUser({ id: "demo-user", email: "demo@materiaprim.com" });
+    setIsAdmin(true);
+    setLoading(false);
+  }, []);
 
   if (loading) {
     return (
