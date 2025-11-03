@@ -115,11 +115,11 @@ const Index = () => {
           </div>
           <div className="container relative z-10 text-primary-foreground px-4 text-center flex flex-col items-center justify-center gap-6 md:gap-8">
             <div className="flex items-center justify-center gap-6 md:gap-10 lg:gap-16">
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold uppercase drop-shadow-2xl tracking-tight">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold uppercase drop-shadow-2xl tracking-tight">
                 Materia
               </h1>
               <img src={logo} alt="2D Sviluppo Immobiliare" className="h-40 md:h-56 lg:h-72 w-auto opacity-90 drop-shadow-2xl" />
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold uppercase drop-shadow-2xl tracking-tight">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold uppercase drop-shadow-2xl tracking-tight">
                 Prima
               </h1>
             </div>
