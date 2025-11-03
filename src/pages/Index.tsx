@@ -113,15 +113,17 @@ const Index = () => {
           >
             <div className="absolute inset-0 bg-gradient-to-b from-primary/80 via-primary/60 to-primary/90"></div>
           </div>
-          <div className="container relative z-10 text-primary-foreground px-4 text-center flex flex-col items-center justify-center gap-6 md:gap-8">
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold uppercase drop-shadow-2xl tracking-tight">
+          <div className="container relative z-10 text-primary-foreground px-4 text-center flex items-center justify-center gap-6 md:gap-10 lg:gap-16">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold uppercase drop-shadow-2xl tracking-tight">
               Materia
             </h1>
-            <img src={logo} alt="2D Sviluppo Immobiliare" className="h-48 md:h-64 lg:h-80 w-auto opacity-90 drop-shadow-2xl" />
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold uppercase drop-shadow-2xl tracking-tight">
+            <img src={logo} alt="2D Sviluppo Immobiliare" className="h-40 md:h-56 lg:h-72 w-auto opacity-90 drop-shadow-2xl" />
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold uppercase drop-shadow-2xl tracking-tight">
               Prima
             </h1>
-            <div className="space-y-4 mt-4">
+          </div>
+          <div className="container relative z-10 text-primary-foreground px-4 text-center mt-8">
+            <div className="space-y-4">
               <p className="text-xl md:text-2xl lg:text-3xl max-w-4xl mx-auto drop-shadow-lg font-normal leading-relaxed">
                 Il blog di 2D Sviluppo Immobiliare
               </p>
@@ -129,7 +131,7 @@ const Index = () => {
                 Innovazione, sostenibilità e visione nel settore edilizio
               </p>
             </div>
-            <Link to="/chi-siamo" className="inline-block mt-4">
+            <Link to="/chi-siamo" className="inline-block mt-8">
               <Button size="lg" className="uppercase font-bold text-lg px-8 py-6 bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg">
                 Scopri il Sistema 2D
               </Button>
