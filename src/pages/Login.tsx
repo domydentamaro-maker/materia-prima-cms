@@ -22,9 +22,7 @@ const Login = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
+  const handleLogin = () => {
     // Bypass authentication - redirect directly to admin
     toast({
       title: "Accesso effettuato",
@@ -45,35 +43,18 @@ const Login = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleLogin} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="admin@esempio.it"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  maxLength={255}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  minLength={6}
-                  maxLength={100}
-                />
-              </div>
-              <Button type="submit" className="w-full uppercase font-bold" disabled={loading}>
-                {loading ? "Accesso in corso..." : "Accedi"}
+            <div className="space-y-4">
+              <p className="text-center text-muted-foreground">
+                Modalità Demo - Accesso diretto alla dashboard
+              </p>
+              <Button 
+                onClick={handleLogin} 
+                className="w-full uppercase font-bold" 
+                disabled={loading}
+              >
+                {loading ? "Accesso in corso..." : "Accedi alla Dashboard"}
               </Button>
-            </form>
+            </div>
           </CardContent>
         </Card>
       </main>
