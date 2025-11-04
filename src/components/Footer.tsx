@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import logo from "@/assets/logo.png";
+import { Facebook, Instagram, Linkedin } from "lucide-react";
 export const Footer = () => {
   return <footer className="border-t border-border mt-20" style={{
     background: 'linear-gradient(135deg, hsl(42 90% 60%) 0%, hsl(42 80% 70%) 100%)'
@@ -40,6 +41,17 @@ export const Footer = () => {
               <li>info@2dsviluppoimmobiliare.it</li>
               <li>Tel: +39 3408039322</li>
             </ul>
+            <div className="flex gap-4 mt-4">
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary-foreground transition-colors">
+                <Facebook size={24} />
+              </a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary-foreground transition-colors">
+                <Instagram size={24} />
+              </a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary-foreground transition-colors">
+                <Linkedin size={24} />
+              </a>
+            </div>
           </div>
         </div>
         
