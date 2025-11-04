@@ -113,26 +113,26 @@ const Index = () => {
           >
             <div className="absolute inset-0 bg-gradient-to-b from-primary/80 via-primary/60 to-primary/90"></div>
           </div>
-          <div className="container relative z-10 text-primary-foreground px-4 text-center flex flex-col items-center justify-center gap-6 md:gap-8">
-            <div className="flex items-center justify-center gap-6 md:gap-10 lg:gap-16">
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold uppercase drop-shadow-2xl tracking-tight">
+          <div className="container relative z-10 text-primary-foreground px-4 text-center flex flex-col items-center justify-center gap-4 md:gap-6">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6 lg:gap-10">
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold uppercase drop-shadow-2xl tracking-tight">
                 Materia
               </h1>
               <img src={logo} alt="2D Sviluppo Immobiliare" className="h-40 md:h-56 lg:h-72 w-auto opacity-90 drop-shadow-2xl" />
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold uppercase drop-shadow-2xl tracking-tight">
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold uppercase drop-shadow-2xl tracking-tight">
                 Prima
               </h1>
             </div>
-            <div className="space-y-4 mt-4">
-              <p className="text-xl md:text-2xl lg:text-3xl max-w-4xl mx-auto drop-shadow-lg font-normal leading-relaxed">
+            <div className="space-y-3 md:space-y-4 mt-2 md:mt-4">
+              <p className="text-lg md:text-xl lg:text-2xl max-w-4xl mx-auto drop-shadow-lg font-normal leading-relaxed px-4">
                 Il blog di 2D Sviluppo Immobiliare
               </p>
-              <p className="text-xl md:text-2xl lg:text-3xl max-w-4xl mx-auto drop-shadow-lg font-normal leading-relaxed">
+              <p className="text-lg md:text-xl lg:text-2xl max-w-4xl mx-auto drop-shadow-lg font-normal leading-relaxed px-4">
                 Innovazione, sostenibilità e visione nel settore edilizio
               </p>
             </div>
-            <Link to="/chi-siamo" className="inline-block mt-4">
-              <Button size="lg" className="uppercase font-bold text-lg px-8 py-6 bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg">
+            <Link to="/chi-siamo" className="inline-block mt-3 md:mt-4">
+              <Button size="lg" className="uppercase font-bold text-base md:text-lg px-6 md:px-8 py-4 md:py-6 bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg">
                 Scopri il Sistema 2D
               </Button>
             </Link>
