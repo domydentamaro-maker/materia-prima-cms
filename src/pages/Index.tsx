@@ -114,12 +114,12 @@ const Index = () => {
             <div className="absolute inset-0 bg-gradient-to-b from-primary/80 via-primary/60 to-primary/90"></div>
           </div>
           <div className="container relative z-10 text-primary-foreground px-4 text-center flex flex-col items-center justify-center gap-4 md:gap-6">
-            <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6 lg:gap-10">
-              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold uppercase drop-shadow-2xl tracking-tight">
+            <div className="flex flex-row items-center justify-center gap-2 md:gap-6 lg:gap-10">
+              <h1 className="text-xl md:text-3xl lg:text-4xl font-bold uppercase drop-shadow-2xl tracking-tight">
                 Materia
               </h1>
-              <img src={logo} alt="2D Sviluppo Immobiliare" className="h-40 md:h-56 lg:h-72 w-auto opacity-90 drop-shadow-2xl" />
-              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold uppercase drop-shadow-2xl tracking-tight">
+              <img src={logo} alt="2D Sviluppo Immobiliare" className="h-32 md:h-56 lg:h-72 w-auto opacity-90 drop-shadow-2xl" />
+              <h1 className="text-xl md:text-3xl lg:text-4xl font-bold uppercase drop-shadow-2xl tracking-tight">
                 Prima
               </h1>
             </div>
