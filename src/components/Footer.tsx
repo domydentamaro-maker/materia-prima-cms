@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import logo from "@/assets/logo.png";
-
 export const Footer = () => {
-  return (
-    <footer className="border-t border-border mt-20" style={{ background: 'linear-gradient(135deg, hsl(42 90% 60%) 0%, hsl(42 80% 70%) 100%)' }}>
+  return <footer className="border-t border-border mt-20" style={{
+    background: 'linear-gradient(135deg, hsl(42 90% 60%) 0%, hsl(42 80% 70%) 100%)'
+  }}>
       <div className="container py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
@@ -38,7 +38,7 @@ export const Footer = () => {
             <h3 className="font-bold uppercase text-sm mb-3 text-primary">Contatti</h3>
             <ul className="space-y-2 text-sm text-primary">
               <li>info@2dsviluppoimmobiliare.it</li>
-              <li>Tel: +39 000 000 0000</li>
+              <li>Tel: +39 3408039322</li>
             </ul>
           </div>
         </div>
@@ -47,6 +47,5 @@ export const Footer = () => {
           © {new Date().getFullYear()} 2D Sviluppo Immobiliare - Materia Prima. Tutti i diritti riservati.
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
