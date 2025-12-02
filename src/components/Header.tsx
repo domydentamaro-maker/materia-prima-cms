@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, LogOut } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import logo from "@/assets/logo.png";
@@ -12,8 +12,17 @@ interface HeaderProps {
 
 export const Header = ({ user }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const { toast } = useToast();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
@@ -29,7 +38,7 @@ export const Header = ({ user }: HeaderProps) => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <header className="fixed top-0 z-50 w-full bg-transparent transition-all">
+    <header className={`fixed top-0 z-50 w-full transition-all duration-300 ${isScrolled ? "bg-primary shadow-lg" : "bg-transparent"}`}>
       <div className="container flex h-24 md:h-28 items-center justify-between gap-4">
         <Link to="/" className="flex items-center">
           <img src={logo} alt="2D Sviluppo Immobiliare" className="h-20 md:h-24 w-auto" />

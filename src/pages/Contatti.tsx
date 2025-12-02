@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import { z } from "zod";
 
 const contactSchema = z.object({
@@ -64,112 +64,130 @@ const Contatti = () => {
     }, 1000);
   };
 
+  const contactInfo = [
+    {
+      icon: Mail,
+      title: "Email",
+      content: "info@2dsviluppoimmobiliare.it"
+    },
+    {
+      icon: Phone,
+      title: "Telefono",
+      content: "+39 000 000 0000"
+    },
+    {
+      icon: MapPin,
+      title: "Indirizzo",
+      content: "Via Esempio 123, 00100 Roma, Italia"
+    },
+    {
+      icon: Clock,
+      title: "Orari",
+      content: "Lun - Ven: 9:00 - 18:00"
+    }
+  ];
+
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-background">
       <Header user={user} />
       
-      <main className="flex-1 pt-24 md:pt-28">
-        <section className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground py-20">
-          <div className="container">
-            <h1 className="text-4xl md:text-6xl font-bold uppercase mb-4">
-              Contatti
-            </h1>
-            <p className="text-xl md:text-2xl max-w-2xl">
-              Siamo qui per ascoltarti
-            </p>
+      <main className="flex-1">
+        {/* Hero Section */}
+        <section className="bg-primary text-primary-foreground pt-32 pb-20 md:pt-40 md:pb-28">
+          <div className="container px-4 md:px-6">
+            <div className="max-w-3xl">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold uppercase mb-6">
+                Contatti
+              </h1>
+              <p className="text-lg md:text-xl lg:text-2xl opacity-90 leading-relaxed">
+                Siamo qui per ascoltarti e rispondere alle tue domande
+              </p>
+            </div>
           </div>
         </section>
 
-        <section className="container py-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-            <div className="space-y-8">
-              <Card className="p-6">
-                <h2 className="text-2xl font-bold uppercase mb-6">Informazioni di Contatto</h2>
-                <div className="space-y-4">
-                  <div className="flex items-start gap-4">
-                    <Mail className="h-5 w-5 text-primary mt-1" />
-                    <div>
-                      <p className="font-bold">Email</p>
-                      <p className="text-muted-foreground">info@2dsviluppoimmobiliare.it</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <Phone className="h-5 w-5 text-primary mt-1" />
-                    <div>
-                      <p className="font-bold">Telefono</p>
-                      <p className="text-muted-foreground">+39 000 000 0000</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <MapPin className="h-5 w-5 text-primary mt-1" />
-                    <div>
-                      <p className="font-bold">Indirizzo</p>
-                      <p className="text-muted-foreground">
-                        Via Esempio 123<br />
-                        00100 Roma, Italia
-                      </p>
-                    </div>
+        {/* Contact Section */}
+        <section className="py-16 md:py-24 bg-card">
+          <div className="container px-4 md:px-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto">
+              {/* Contact Info */}
+              <div className="space-y-6">
+                <div>
+                  <h2 className="text-2xl md:text-3xl font-bold uppercase mb-8 text-card-foreground">
+                    Informazioni di Contatto
+                  </h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
+                    {contactInfo.map((info, index) => (
+                      <Card key={index} className="p-5 md:p-6 border-0 shadow-md hover:shadow-lg transition-shadow">
+                        <div className="flex items-start gap-4">
+                          <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
+                            <info.icon className="h-5 w-5 text-accent" />
+                          </div>
+                          <div>
+                            <p className="font-bold text-card-foreground mb-1">{info.title}</p>
+                            <p className="text-muted-foreground text-sm md:text-base">{info.content}</p>
+                          </div>
+                        </div>
+                      </Card>
+                    ))}
                   </div>
                 </div>
-              </Card>
+              </div>
 
-              <Card className="p-6">
-                <h3 className="text-xl font-bold uppercase mb-4">Orari di Apertura</h3>
-                <div className="space-y-2 text-muted-foreground">
-                  <p>Lunedì - Venerdì: 9:00 - 18:00</p>
-                  <p>Sabato: Su appuntamento</p>
-                  <p>Domenica: Chiuso</p>
-                </div>
+              {/* Contact Form */}
+              <Card className="p-6 md:p-8 lg:p-10 border-0 shadow-lg">
+                <h2 className="text-2xl md:text-3xl font-bold uppercase mb-8 text-card-foreground">
+                  Inviaci un Messaggio
+                </h2>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="name" className="text-sm font-semibold">Nome *</Label>
+                    <Input
+                      id="name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="Il tuo nome"
+                      required
+                      maxLength={100}
+                      className="h-12"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="email" className="text-sm font-semibold">Email *</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="tua@email.it"
+                      required
+                      maxLength={255}
+                      className="h-12"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="message" className="text-sm font-semibold">Messaggio *</Label>
+                    <Textarea
+                      id="message"
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                      placeholder="Scrivi qui il tuo messaggio..."
+                      rows={6}
+                      required
+                      maxLength={1000}
+                      className="resize-none"
+                    />
+                  </div>
+                  <Button
+                    type="submit"
+                    className="w-full uppercase font-bold h-12 text-base"
+                    disabled={loading}
+                  >
+                    {loading ? "Invio in corso..." : "Invia Messaggio"}
+                  </Button>
+                </form>
               </Card>
             </div>
-
-            <Card className="p-6">
-              <h2 className="text-2xl font-bold uppercase mb-6">Inviaci un Messaggio</h2>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="name">Nome *</Label>
-                  <Input
-                    id="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Il tuo nome"
-                    required
-                    maxLength={100}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email *</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="tua@email.it"
-                    required
-                    maxLength={255}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="message">Messaggio *</Label>
-                  <Textarea
-                    id="message"
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Scrivi qui il tuo messaggio..."
-                    rows={6}
-                    required
-                    maxLength={1000}
-                  />
-                </div>
-                <Button
-                  type="submit"
-                  className="w-full uppercase font-bold"
-                  disabled={loading}
-                >
-                  {loading ? "Invio in corso..." : "Invia Messaggio"}
-                </Button>
-              </form>
-            </Card>
           </div>
         </section>
       </main>

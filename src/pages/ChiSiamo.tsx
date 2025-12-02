@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Card } from "@/components/ui/card";
+import { Building2, Leaf, Award, Users } from "lucide-react";
 
 const ChiSiamo = () => {
   const [user, setUser] = useState<any>(null);
@@ -15,70 +16,108 @@ const ChiSiamo = () => {
     checkUser();
   }, []);
 
+  const valori = [
+    {
+      icon: Building2,
+      title: "Innovazione",
+      description: "Utilizziamo le tecnologie più avanzate per creare soluzioni all'avanguardia nel settore immobiliare."
+    },
+    {
+      icon: Leaf,
+      title: "Sostenibilità",
+      description: "Ogni nostro progetto è pensato per minimizzare l'impatto ambientale e massimizzare l'efficienza energetica."
+    },
+    {
+      icon: Award,
+      title: "Qualità",
+      description: "La cura dei dettagli e l'eccellenza nei materiali sono al centro di ogni nostra realizzazione."
+    },
+    {
+      icon: Users,
+      title: "Trasparenza",
+      description: "Crediamo in una comunicazione chiara e onesta con tutti i nostri stakeholder."
+    }
+  ];
+
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-background">
       <Header user={user} />
       
-      <main className="flex-1 pt-24 md:pt-28">
-        <section className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground py-20">
-          <div className="container">
-            <h1 className="text-4xl md:text-6xl font-bold uppercase mb-4">
-              Chi Siamo
-            </h1>
-            <p className="text-xl md:text-2xl max-w-2xl">
-              La nostra storia, la nostra visione
-            </p>
+      <main className="flex-1">
+        {/* Hero Section */}
+        <section className="bg-primary text-primary-foreground pt-32 pb-20 md:pt-40 md:pb-28">
+          <div className="container px-4 md:px-6">
+            <div className="max-w-3xl">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold uppercase mb-6">
+                Chi Siamo
+              </h1>
+              <p className="text-lg md:text-xl lg:text-2xl opacity-90 leading-relaxed">
+                La nostra storia, la nostra visione per il futuro dell'edilizia
+              </p>
+            </div>
           </div>
         </section>
 
-        <section className="container py-20">
-          <div className="max-w-4xl mx-auto space-y-12">
-            <Card className="p-8">
-              <h2 className="text-3xl font-bold uppercase mb-6">La Nostra Missione</h2>
-              <p className="text-lg leading-relaxed mb-4">
-                2D Sviluppo Immobiliare nasce dalla passione per l'innovazione nel settore edilizio e dalla volontà di creare spazi che migliorino la qualità della vita delle persone.
-              </p>
-              <p className="text-lg leading-relaxed">
-                Con "Materia Prima" vogliamo condividere la nostra visione, le nostre esperienze e le tendenze più innovative del settore immobiliare, promuovendo un approccio sostenibile e tecnologicamente avanzato allo sviluppo urbano.
-              </p>
-            </Card>
+        {/* Mission Section */}
+        <section className="py-16 md:py-24 bg-card">
+          <div className="container px-4 md:px-6">
+            <div className="max-w-4xl mx-auto">
+              <Card className="p-6 md:p-10 lg:p-12 shadow-lg border-0">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold uppercase mb-6 text-card-foreground">
+                  La Nostra Missione
+                </h2>
+                <div className="space-y-4 text-base md:text-lg leading-relaxed text-muted-foreground">
+                  <p>
+                    2D Sviluppo Immobiliare nasce dalla passione per l'innovazione nel settore edilizio e dalla volontà di creare spazi che migliorino la qualità della vita delle persone.
+                  </p>
+                  <p>
+                    Con "Materia Prima" vogliamo condividere la nostra visione, le nostre esperienze e le tendenze più innovative del settore immobiliare, promuovendo un approccio sostenibile e tecnologicamente avanzato allo sviluppo urbano.
+                  </p>
+                </div>
+              </Card>
+            </div>
+          </div>
+        </section>
 
-            <Card className="p-8">
-              <h2 className="text-3xl font-bold uppercase mb-6">I Nostri Valori</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <h3 className="text-xl font-bold uppercase mb-2 text-primary">Innovazione</h3>
-                  <p className="text-muted-foreground">
-                    Utilizziamo le tecnologie più avanzate per creare soluzioni all'avanguardia nel settore immobiliare.
+        {/* Values Section */}
+        <section className="py-16 md:py-24 bg-background">
+          <div className="container px-4 md:px-6">
+            <div className="text-center mb-12 md:mb-16">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold uppercase text-foreground">
+                I Nostri Valori
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 max-w-6xl mx-auto">
+              {valori.map((valore, index) => (
+                <Card key={index} className="p-6 md:p-8 text-center hover:shadow-xl transition-shadow duration-300 border-0 bg-card">
+                  <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-accent/20 flex items-center justify-center">
+                    <valore.icon className="w-8 h-8 text-accent" />
+                  </div>
+                  <h3 className="text-lg md:text-xl font-bold uppercase mb-3 text-card-foreground">
+                    {valore.title}
+                  </h3>
+                  <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+                    {valore.description}
                   </p>
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold uppercase mb-2 text-primary">Sostenibilità</h3>
-                  <p className="text-muted-foreground">
-                    Ogni nostro progetto è pensato per minimizzare l'impatto ambientale e massimizzare l'efficienza energetica.
-                  </p>
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold uppercase mb-2 text-primary">Qualità</h3>
-                  <p className="text-muted-foreground">
-                    La cura dei dettagli e l'eccellenza nei materiali sono al centro di ogni nostra realizzazione.
-                  </p>
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold uppercase mb-2 text-primary">Trasparenza</h3>
-                  <p className="text-muted-foreground">
-                    Crediamo in una comunicazione chiara e onesta con tutti i nostri stakeholder.
-                  </p>
-                </div>
-              </div>
-            </Card>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
 
-            <Card className="p-8">
-              <h2 className="text-3xl font-bold uppercase mb-6">Il Nostro Team</h2>
-              <p className="text-lg leading-relaxed">
-                Il nostro team è composto da professionisti con competenze diverse ma complementari: architetti, ingegneri, designer e esperti di marketing lavorano insieme per trasformare ogni progetto in realtà, dalla concezione alla realizzazione finale.
-              </p>
-            </Card>
+        {/* Team Section */}
+        <section className="py-16 md:py-24 bg-card">
+          <div className="container px-4 md:px-6">
+            <div className="max-w-4xl mx-auto">
+              <Card className="p-6 md:p-10 lg:p-12 shadow-lg border-0">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold uppercase mb-6 text-card-foreground">
+                  Il Nostro Team
+                </h2>
+                <p className="text-base md:text-lg leading-relaxed text-muted-foreground">
+                  Il nostro team è composto da professionisti con competenze diverse ma complementari: architetti, ingegneri, designer e esperti di marketing lavorano insieme per trasformare ogni progetto in realtà, dalla concezione alla realizzazione finale.
+                </p>
+              </Card>
+            </div>
           </div>
         </section>
       </main>
