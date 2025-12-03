@@ -25,8 +25,8 @@ export const Preloader = ({ onComplete }: PreloaderProps) => {
 
   return (
     <div 
-      className={`fixed inset-0 z-[100] flex items-center justify-center transition-all duration-500 ${
-        isFading ? 'bg-transparent' : 'bg-primary'
+      className={`fixed inset-0 z-[100] flex items-center justify-center bg-primary transition-opacity duration-500 ${
+        isFading ? 'opacity-0 pointer-events-none' : 'opacity-100'
       }`}
     >
       <div className="animate-pulse">
